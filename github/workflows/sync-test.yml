@@ -22,12 +22,28 @@ jobs:
       - name: Init manifest
         run: |
           mkdir fox_12.1 && cd fox_12.1
-          repo init -u https://github.com/OrangeFox-Documentation/local_manifest -b fox_12.1 --depth=1
+          repo init -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1 --depth=1
+
+      - name: Add local manifest (remove rust)
+        run: |
+          mkdir -p fox_12.1/.repo/local_manifests
+          cat > fox_12.1/.repo/local_manifests/remove.xml << 'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <manifest>
+            <remove-project name="platform/prebuilts/rust" />
+          </manifest>
+          EOF
 
       - name: Sync source
         run: |
           cd fox_12.1
           repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
+
+      - name: Clone device tree
+        run: |
+          cd fox_12.1/device
+          mkdir -p infinix transsion
+          git clone https://github.com/transsion-mt6789-recovery/twrp-device_infinix_Infinix-X6880 --branch fox_12.1 infinix/Infinix-X6880
 
       - name: Check disk usage
         run: df -h
