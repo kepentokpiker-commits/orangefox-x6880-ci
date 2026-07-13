@@ -1,0 +1,33 @@
+name: Sync Test
+on: workflow_dispatch
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 2048
+          remove-dotnet: true
+          remove-android: true
+          remove-haskell: true
+
+      - name: Install repo tool
+        run: |
+          mkdir -p ~/bin
+          curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+          chmod a+x ~/bin/repo
+          echo "$HOME/bin" >> $GITHUB_PATH
+
+      - name: Init manifest
+        run: |
+          mkdir fox_12.1 && cd fox_12.1
+          repo init -u https://github.com/OrangeFox-Documentation/local_manifest -b fox_12.1 --depth=1
+
+      - name: Sync source
+        run: |
+          cd fox_12.1
+          repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
+
+      - name: Check disk usage
+        run: df -h
