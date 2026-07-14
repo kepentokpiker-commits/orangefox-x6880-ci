@@ -54,7 +54,7 @@ jobs:
           source build/envsetup.sh
           lunch twrp_X6880-eng
           free -h
-          mka vendorbootimage -j2
+          mka vendorbootimage -j1
 
       - name: Find output image
         run: |
