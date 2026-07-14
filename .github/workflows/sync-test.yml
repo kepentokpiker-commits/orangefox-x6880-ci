@@ -42,9 +42,8 @@ jobs:
       - name: Clone device tree
         run: |
           cd fox_12.1/device
-          mkdir -p infinix transsion
+          mkdir -p infinix
           git clone https://github.com/transsion-mt6789-recovery/twrp-device_infinix_Infinix-X6880.git infinix/Infinix-X6880
-          git clone https://github.com/transsion-mt6789-recovery/twrp-device_transsion_mt6789-common.git transsion/mt6789-common
 
       - name: Check disk usage
         run: df -h
