@@ -48,10 +48,10 @@ jobs:
 
       - name: Find output image
         run: |
-          find fox_12.1/out/target/product/X6880 -maxdepth 1 -iname "*.img"
+          find fox_12.1/out/target/product/Infinix-X6880 -maxdepth 1 -iname "*.img"
 
       - name: Upload recovery image
         uses: actions/upload-artifact@v4
         with:
           name: recovery-image
-          path: fox_12.1/out/target/product/X6880/*.img
+          path: fox_12.1/out/target/product/Infinix-X6880/*.img
