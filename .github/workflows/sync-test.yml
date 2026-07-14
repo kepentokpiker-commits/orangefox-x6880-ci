@@ -53,7 +53,8 @@ jobs:
           cd fox_12.1
           source build/envsetup.sh
           lunch twrp_X6880-eng
-          mka recoveryimage -j4
+          free -h
+          mka recoveryimage -j2
 
       - name: Find output image
         run: |
